@@ -2,6 +2,7 @@
 
 
 #include "worldPosition.h"
+#include "GameFramework\Actor.h"
 
 // Sets default values for this component's properties
 UworldPosition::UworldPosition()
@@ -19,8 +20,45 @@ void UworldPosition::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	FString Log = TEXT("Hello");
+	FString* PtrLog = &Log;    // & is (the address off)    * is (indicating a Pointer)
+
+
+	// short intro to pointers
+
+	//   below are the same thing
+	//Log.Len();    // standard through the FSTRING
+	//(*PtrLog).Len();    // through the pointer dereferenced 
+	//PtrLog->Len();      // through the pointer useing an accessor
+
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), *Log);    // %s dose not get shown  
+												   // * operator before *Log is refered to as an overload/overloaded in this statement
+
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), **PtrLog);     // **PrtLog   Overloaded and dereferenced
 	
+
+	
+
+
+	// Getting the Actors Name to print
+
+	//FString OctorName = GetOwner()->GetName();     // GetOwner()->GetName(); gives you the name of your actor.
+	//UE_LOG(LogTemp, Warning, TEXT("my name is %s"), *actorName);
+	//UE_LOG(LogTemp, Warning, TEXT("my name is %s"), *GetOwner()->GetName());
+
+	
+
+	// Getting the actors location to print
+	//FString ObjectPosition = GetOwner()->GetActorLocation().ToString();
+	//UE_LOG(LogTemp, Warning, TEXT("my loaction is %s"), *ObjectPosition);
+
+
+
+	FString ObjectName = GetOwner()->GetName();    // get object name
+	FString ObjectLocation = GetOwner()->GetActorLocation().ToString();   // get object XYZ location
+	FString ObjectLocation2 = GetOwner()->GetActorTransform().GetLocation().ToString(); // same as above (but follow editor view components)
+	UE_LOG(LogTemp, Warning, TEXT("%s - location in world is %s"), *ObjectName, *ObjectLocation2);   // output to console
+
 }
 
 
